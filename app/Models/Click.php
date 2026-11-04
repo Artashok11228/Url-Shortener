@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Browser;
+use App\Enums\Device;
 use Database\Factories\ClickFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +24,8 @@ class Click extends Model
     protected function casts(): array
     {
         return [
+            'browser' => Browser::class,
+            'device' => Device::class,
             'clicked_at' => 'datetime',
         ];
     }

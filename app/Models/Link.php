@@ -20,6 +20,10 @@ class Link extends Model
     /** @use HasFactory<LinkFactory> */
     use HasFactory, SoftDeletes;
 
+    protected $attributes = [
+        'is_active' => true,
+    ];
+
     protected function casts(): array
     {
         return [

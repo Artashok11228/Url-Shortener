@@ -114,8 +114,12 @@ the worker does the insert later. If the queue is down, redirects still work.
 
 **Random base62 codes with collision retry.** Codes are 7 random characters
 from `[a-zA-Z0-9]` (about 3.5 trillion combinations). The generator checks the
-database and retries on the rare collision. Random codes do not leak how many
-links exist, unlike encoding an auto-increment ID. Details in
+database (including soft-deleted rows and reserved words) and draws again on
+the rare collision. Random codes do not leak how many links exist, unlike
+encoding an auto-increment ID. Two requests can still draw the same code
+between the check and the insert; the unique index rejects the second one and
+`CreateLink` simply retries once. On MySQL the `code` column uses a binary
+collation so that `abc` and `ABC` stay different codes. Details in
 `docs/DECISIONS.md`.
 
 **302, not 301.** Browsers cache a 301 permanently, which means later clicks

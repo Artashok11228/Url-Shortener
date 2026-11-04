@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Browser;
+use App\Enums\Device;
 use App\Models\Click;
 use App\Models\Link;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,8 +23,8 @@ class ClickFactory extends Factory
             'user_agent' => fake()->userAgent(),
             'referrer' => fake()->boolean(60) ? fake()->url() : null,
             'country' => fake()->boolean(80) ? fake()->countryCode() : null,
-            'browser' => fake()->randomElement(['Chrome', 'Firefox', 'Safari', 'Edge', 'Other']),
-            'device' => fake()->randomElement(['desktop', 'mobile', 'tablet']),
+            'browser' => fake()->randomElement(Browser::cases()),
+            'device' => fake()->randomElement([Device::Desktop, Device::Mobile, Device::Tablet]),
             'clicked_at' => fake()->dateTimeBetween('-30 days'),
         ];
     }
