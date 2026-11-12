@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "C:\\xampp\\php\\php.exe",
+            "args": [
+                "D:\\Laravel-Projects\\Resume\\url-shortener\\artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
