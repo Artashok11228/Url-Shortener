@@ -35,7 +35,7 @@ php artisan sail:install   # فقط اگر compose.yaml هنوز نداری
 
 ## اجرای محلی بدون Docker
 
-برای توسعهٔ سریع می‌توانی SQLite و cache فایل استفاده کنی (مثل `.env` فعلی توسعه). Redis در این حالت اختیاری است و در فاز ۱ برای cache یا queue استفاده نمی‌شود.
+برای توسعهٔ سریع می‌توانی SQLite استفاده کنی. از فاز ۴ برای redirect باید `CACHE_STORE=redis` باشد (و Redis در حال اجرا). صف هنوز `sync` است تا فاز ۵.
 
 ```bash
 cp .env.example .env
@@ -63,10 +63,22 @@ vendor/bin/pint
 
 ## وضعیت فازها
 
-- فاز ۱: Docker/Sail با MySQL و Redis؛ `CACHE_STORE=file` و `QUEUE_CONNECTION=sync`.
+- فاز ۱: Docker/Sail با MySQL و Redis؛ در آن فاز cache هنوز file بود.
 - فاز ۲: ساخت/ویرایش/حذف لینک، alias، انقضا، و redirect عمومی `GET /{code}`.
 - فاز ۳: ورود با توکن Sanctum، مالکیت لینک، و کنترل دسترسی با Policy (کاربر / ادمین).
+- فاز ۴: cache ردیاب redirect با Redis، ابطال هنگام ویرایش/حذف، و اندازه‌گیری با k6.
 - برنامهٔ فازها در `DEVELOPMENT.md` و نکات یادگیری در `LEARNING.md` است.
+
+### Cache و اندازه‌گیری (فاز ۴)
+
+Redirect از `LinkCache` می‌خواند (`links:code:{code}`). با ویرایش یا حذف لینک، همان کلید پاک می‌شود. انقضا روی هر درخواست (حتی cache hit) دوباره چک می‌شود.
+
+```bash
+# نمونهٔ اندازه‌گیری (دنبال‌کردن Location خاموش است)
+k6 run -e BASE_URL=http://127.0.0.1:8000 -e CODE=bench -e VUS=1 -e DURATION=20s scripts/redirect-bench.js
+```
+
+نتایج واقعی این فاز: [`docs/benchmarks/phase-04-results.md`](docs/benchmarks/phase-04-results.md).
 
 ### احراز هویت API (فاز ۳)
 

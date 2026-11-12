@@ -1,0 +1,167 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: scripts/redirect-bench.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 45s max duration (incl. graceful stop):
+              * redirect: 20 looping VUs for 15s (gracefulStop: 30s)
+
+
+running (01.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+redirect   [   7% ] 20 VUs  01.0s/15s
+
+running (02.0s), 20/20 VUs, 1 complete and 0 interrupted iterations
+redirect   [  13% ] 20 VUs  02.0s/15s
+
+running (03.0s), 20/20 VUs, 1 complete and 0 interrupted iterations
+redirect   [  20% ] 20 VUs  03.0s/15s
+
+running (04.0s), 20/20 VUs, 2 complete and 0 interrupted iterations
+redirect   [  27% ] 20 VUs  04.0s/15s
+
+running (05.0s), 20/20 VUs, 3 complete and 0 interrupted iterations
+redirect   [  33% ] 20 VUs  05.0s/15s
+
+running (06.0s), 20/20 VUs, 3 complete and 0 interrupted iterations
+redirect   [  40% ] 20 VUs  06.0s/15s
+
+running (07.0s), 20/20 VUs, 4 complete and 0 interrupted iterations
+redirect   [  47% ] 20 VUs  07.0s/15s
+
+running (08.0s), 20/20 VUs, 5 complete and 0 interrupted iterations
+redirect   [  53% ] 20 VUs  08.0s/15s
+
+running (09.0s), 20/20 VUs, 5 complete and 0 interrupted iterations
+redirect   [  60% ] 20 VUs  09.0s/15s
+
+running (10.0s), 20/20 VUs, 6 complete and 0 interrupted iterations
+redirect   [  67% ] 20 VUs  10.0s/15s
+
+running (11.0s), 20/20 VUs, 7 complete and 0 interrupted iterations
+redirect   [  73% ] 20 VUs  11.0s/15s
+
+running (12.0s), 20/20 VUs, 7 complete and 0 interrupted iterations
+redirect   [  80% ] 20 VUs  12.0s/15s
+
+running (13.0s), 20/20 VUs, 8 complete and 0 interrupted iterations
+redirect   [  87% ] 20 VUs  13.0s/15s
+
+running (14.0s), 20/20 VUs, 9 complete and 0 interrupted iterations
+redirect   [  93% ] 20 VUs  14.0s/15s
+
+running (15.0s), 20/20 VUs, 9 complete and 0 interrupted iterations
+redirect   [ 100% ] 20 VUs  15.0s/15s
+
+running (16.0s), 19/20 VUs, 10 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (17.0s), 18/20 VUs, 11 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (18.0s), 18/20 VUs, 11 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (19.0s), 17/20 VUs, 12 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (20.0s), 16/20 VUs, 13 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (21.0s), 16/20 VUs, 13 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (22.0s), 15/20 VUs, 14 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (23.0s), 14/20 VUs, 15 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (24.0s), 14/20 VUs, 15 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (25.0s), 13/20 VUs, 16 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (26.0s), 12/20 VUs, 17 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (27.0s), 11/20 VUs, 18 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (28.0s), 11/20 VUs, 18 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (29.0s), 10/20 VUs, 19 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (30.0s), 09/20 VUs, 20 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (31.0s), 09/20 VUs, 20 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (32.0s), 08/20 VUs, 21 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (33.0s), 07/20 VUs, 22 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (34.0s), 07/20 VUs, 22 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (35.0s), 06/20 VUs, 23 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (36.0s), 05/20 VUs, 24 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (37.0s), 05/20 VUs, 24 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (38.0s), 04/20 VUs, 25 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (39.0s), 03/20 VUs, 26 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (40.0s), 03/20 VUs, 26 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (41.0s), 02/20 VUs, 27 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (42.0s), 01/20 VUs, 28 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+running (43.0s), 01/20 VUs, 28 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 20 VUs  15s
+
+     ✓ expected status
+
+     checks.........................: 100.00% 29 out of 29
+     data_received..................: 44 kB   1.0 kB/s
+     data_sent......................: 2.5 kB  57 B/s
+     http_req_blocked...............: avg=3.1ms    min=507.8µs med=1.74ms  max=7.92ms  p(90)=7.09ms   p(95)=7.49ms 
+     http_req_connecting............: avg=2.9ms    min=507.8µs med=1.74ms  max=7.42ms  p(90)=6.67ms   p(95)=7.25ms 
+     http_req_duration..............: avg=20.16s   min=1.52s   med=22.72s  max=29.94s  p(90)=29.8s    p(95)=29.89s 
+       { expected_response:true }...: avg=20.16s   min=1.52s   med=22.72s  max=29.94s  p(90)=29.8s    p(95)=29.89s 
+   ✓ http_req_failed................: 0.00%   0 out of 29
+     http_req_receiving.............: avg=13.89ms  min=6.24ms  med=13.64ms max=24.73ms p(90)=19.27ms  p(95)=21.16ms
+     http_req_sending...............: avg=309.03µs min=0s      med=0s      max=1.52ms  p(90)=885.87µs p(95)=1.52ms 
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s      max=0s      p(90)=0s       p(95)=0s     
+     http_req_waiting...............: avg=20.14s   min=1.5s    med=22.7s   max=29.93s  p(90)=29.79s   p(95)=29.88s 
+     http_reqs......................: 29      0.668617/s
+     iteration_duration.............: avg=20.16s   min=1.52s   med=22.73s  max=29.95s  p(90)=29.8s    p(95)=29.89s 
+     iterations.....................: 29      0.668617/s
+     vus............................: 1       min=1        max=20
+     vus_max........................: 20      min=20       max=20
+
+
+running (43.4s), 00/20 VUs, 29 complete and 0 interrupted iterations
+redirect ✓ [ 100% ] 20 VUs  15s
