@@ -37,6 +37,7 @@ class LinkModelTest extends TestCase
         $this->assertFalse(Link::factory()->make()->isExpired());
         $this->assertFalse(Link::factory()->expiresIn(1)->make()->isExpired());
         $this->assertTrue(Link::factory()->expired()->make()->isExpired());
+        $this->assertTrue(Link::factory()->make(['expires_at' => now()])->isExpired());
     }
 
     public function test_deleting_a_user_removes_their_links_and_clicks(): void

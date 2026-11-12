@@ -56,7 +56,8 @@ class Link extends Model
 
     public function isExpired(): bool
     {
-        return $this->expires_at !== null && $this->expires_at->isPast();
+        // Same boundary as notExpired(): expires_at <= now counts as expired.
+        return $this->expires_at !== null && $this->expires_at->lessThanOrEqualTo(now());
     }
 
     public function shortUrl(): string
