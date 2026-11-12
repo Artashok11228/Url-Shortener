@@ -65,11 +65,40 @@ vendor/bin/pint
 
 - فاز ۱: Docker/Sail با MySQL و Redis؛ `CACHE_STORE=file` و `QUEUE_CONNECTION=sync`.
 - فاز ۲: ساخت/ویرایش/حذف لینک، alias، انقضا، و redirect عمومی `GET /{code}`.
+- فاز ۳: ورود با توکن Sanctum، مالکیت لینک، و کنترل دسترسی با Policy (کاربر / ادمین).
 - برنامهٔ فازها در `DEVELOPMENT.md` و نکات یادگیری در `LEARNING.md` است.
 
-### API لینک (فاز ۲)
+### احراز هویت API (فاز ۳)
 
-مدیریت لینک‌ها زیر `/api/links` است و فعلاً به توکن Sanctum نیاز دارد (از scaffold قبلی). Redirect عمومی است و auth نمی‌خواهد.
+روش انتخاب‌شده: **توکن Bearer با Sanctum** (مناسب مصرف‌کنندهٔ API تا قبل از داشبورد).
+
+کاربر نمونه بعد از `php artisan db:seed`:
+
+- ادمین: `admin@example.com` / `password`
+- کاربر: `demo@example.com` / `password`
+
+```bash
+# ورود و دریافت توکن
+curl -X POST http://localhost/api/login \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"demo@example.com","password":"password"}'
+
+# پروفایل جاری
+curl http://localhost/api/me \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Accept: application/json"
+
+# خروج (حذف توکن جاری)
+curl -X POST http://localhost/api/logout \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Accept: application/json"
+```
+
+### API لینک
+
+مدیریت لینک‌ها زیر `/api/links` است و به توکن نیاز دارد. Redirect عمومی است و auth نمی‌خواهد.
+کاربر فقط لینک‌های خودش را می‌بیند/ویرایش می‌کند؛ ادمین همه را.
 
 ```bash
 # ساخت لینک (نیاز به Bearer token)

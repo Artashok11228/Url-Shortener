@@ -14,7 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['user_id', 'original_url', 'code', 'is_active', 'expires_at'])]
+// user_id is set via the owner relationship, never from request input.
+#[Fillable(['original_url', 'code', 'is_active', 'expires_at'])]
 class Link extends Model
 {
     /** @use HasFactory<LinkFactory> */

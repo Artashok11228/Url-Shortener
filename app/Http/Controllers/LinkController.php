@@ -20,13 +20,24 @@ class LinkController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $links = $request->user()->links()->withCount('clicks')->latest()->paginate();
+        Gate::authorize('viewAny', Link::class);
+
+        $user = $request->user();
+
+        // Policy says "may list"; the query decides "which rows". Admins see everyone.
+        $linksQuery = $user->isAdmin()
+            ? Link::query()
+            : $user->links();
+
+        $links = $linksQuery->withCount('clicks')->latest()->paginate();
 
         return LinkResource::collection($links);
     }
 
     public function store(StoreLinkRequest $request, CreateLink $createLink): JsonResponse
     {
+        Gate::authorize('create', Link::class);
+
         $link = $createLink->handle(
             $request->user(),
             $request->validated('original_url'),
