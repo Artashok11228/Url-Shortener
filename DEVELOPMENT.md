@@ -19,7 +19,7 @@
 | ۲ | هستهٔ لینک | ادغام‌شده |
 | ۳ | کاربر و دسترسی | ادغام‌شده |
 | ۴ | اندازه‌گیری و cache | آمادهٔ ادغام |
-| ۵ | event و queue | بررسی‌نشده |
+| ۵ | event و queue | آمادهٔ ادغام |
 | ۶ | داشبورد و N+1 | بررسی‌نشده |
 | ۷ | آماده‌سازی برای ارائه | بررسی‌نشده |
 
@@ -177,13 +177,13 @@ Branch: phase/07-project-delivery
 
 در پایان هر نوبت کاری این بخش به‌روز شود:
 
-- فاز جاری: ۴ — اندازه‌گیری و cache
-- branch: phase/04-redis-cache (با `main` هم‌تراز شد؛ فاز ۳ با PR #2 در `main` ادغام شده)
-- کارهای انجام‌شده: `LinkCache` + `ResolveLink`؛ cache-aside با Redis؛ ابطال در `UpdateLink` و `destroy`؛ تست hit/ابطال/انقضا؛ اسکریپت k6 و نتایج در `docs/benchmarks/`؛ به‌روزرسانی README و LEARNING؛ `.env.example` با `CACHE_STORE=redis`.
-- بررسی‌های انجام‌شده و نتیجه: تست‌های مرتبط سبز؛ اندازه‌گیری واقعی بدون بهبود محسوس روی artisan serve ثبت شد؛ کانفلیکت merge با `main` در `DEVELOPMENT.md` حل شد.
-- کارهای باقی‌مانده: ساخت/ادغام PR فاز ۴ توسط کاربر.
-- تصمیم‌های مهم و دلیل آن‌ها: payload آرایه به‌جای مدل Eloquent؛ k6 به‌جای ab به‌خاطر دسترسی روی Windows؛ چک انقضا بعد از cache hit.
-- مانع یا سؤال باز: Docker Desktop در این محیط بالا نبود؛ Redis با باینری Windows محلی برای bench استفاده شد.
-- قدم بعدی: بررسی PR فاز ۴ و ادغام در `main`.
+- فاز جاری: ۵ — event و queue
+- branch: `phase/05-click-queue` (از روی `phase/04-redis-cache`؛ فاز ۴ هنوز روی `main` ادغام نشده)
+- کارهای انجام‌شده: `LinkClicked` + listener `DispatchRecordClickJob` + `RecordClickJob`؛ اتصال در `RedirectController` بعد از موفقیت redirect (شامل cache hit)؛ استفاده از `RecordClick` موجود؛ تست‌های dispatch/ذخیره/کش/شکست؛ `.env.example` با `QUEUE_CONNECTION=redis`؛ README worker؛ یادداشت اندازه‌گیری در `docs/benchmarks/phase-05-queue-note.md`؛ LEARNING فاز ۵.
+- بررسی‌های انجام‌شده و نتیجه: تست‌های مرتبط سبز؛ بررسی واقعی worker با Redis: صف ۱ → `queue:work --once` → کلیک ذخیره شد.
+- کارهای باقی‌مانده: commit/push این فاز؛ ادغام فاز ۴ (و سپس ۵) روی `main` توسط کاربر.
+- تصمیم‌های مهم و دلیل آن‌ها: Event + Job نام‌دار به‌جای queued listener تنها؛ listener سنکرون برای فقط push؛ at-least-once بدون idempotency key؛ `country=null` چون GeoIP خارج از محدوده است.
+- مانع یا سؤال باز: فاز ۴ هنوز merge نشده؛ پایهٔ این branch همان فاز ۴ است.
+- قدم بعدی: پس از سبز بودن Pint/تست، commit/push و لینک PR.
 
 اطلاعات حساس در این بخش ثبت نشود. شناسهٔ commit نهایی و نتیجهٔ push در پیام تحویل ارائه شوند.

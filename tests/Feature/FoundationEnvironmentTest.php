@@ -10,15 +10,14 @@ it('connects to the application database', function () {
     expect(DB::select('select 1 as ok')[0]->ok)->toBe(1);
 });
 
-it('uses redis for cache while queue stays sync in phase four', function () {
-    // phpunit.xml forces CACHE_STORE=array for isolated tests; .env.example is the product default.
-    expect(config('queue.default'))->not->toBe('redis');
-
+it('uses redis for cache and queue in the product defaults', function () {
+    // phpunit.xml forces CACHE_STORE=array and QUEUE_CONNECTION=sync for isolated tests.
+    // .env.example is the product default shipped for local/Sail.
     $envExample = file_get_contents(base_path('.env.example'));
 
     expect($envExample)
         ->toContain('CACHE_STORE=redis')
-        ->toContain('QUEUE_CONNECTION=sync');
+        ->toContain('QUEUE_CONNECTION=redis');
 });
 
 it('can talk to redis when the service is available', function () {
