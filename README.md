@@ -61,8 +61,26 @@ vendor/bin/pint
 
 تست‌ها با Pest اجرا می‌شوند. Pint فقط استایل کد را یکدست می‌کند؛ جایگزین تست نیست.
 
-## وضعیت فاز ۱
+## وضعیت فازها
 
-- Docker/Sail با MySQL و Redis آماده است.
-- Redis در Docker بالا می‌آید، ولی `CACHE_STORE=file` و `QUEUE_CONNECTION=sync` است تا بعداً آگاهانه به Redis وصل شوند.
+- فاز ۱: Docker/Sail با MySQL و Redis؛ `CACHE_STORE=file` و `QUEUE_CONNECTION=sync`.
+- فاز ۲: ساخت/ویرایش/حذف لینک، alias، انقضا، و redirect عمومی `GET /{code}`.
 - برنامهٔ فازها در `DEVELOPMENT.md` و نکات یادگیری در `LEARNING.md` است.
+
+### API لینک (فاز ۲)
+
+مدیریت لینک‌ها زیر `/api/links` است و فعلاً به توکن Sanctum نیاز دارد (از scaffold قبلی). Redirect عمومی است و auth نمی‌خواهد.
+
+```bash
+# ساخت لینک (نیاز به Bearer token)
+curl -X POST http://localhost/api/links \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{"original_url":"https://example.com","alias":"my-launch"}'
+
+# باز کردن لینک کوتاه
+curl -I http://localhost/my-launch
+```
+
+رفتار redirect: فعال → `302`؛ ناموجود/حذف‌شده/غیرفعال → `404`؛ منقضی → `410`.
