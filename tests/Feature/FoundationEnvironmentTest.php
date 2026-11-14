@@ -10,14 +10,14 @@ it('connects to the application database', function () {
     expect(DB::select('select 1 as ok')[0]->ok)->toBe(1);
 });
 
-it('keeps redis out of cache and queue in phase one', function () {
-    expect(config('cache.default'))->not->toBe('redis');
+it('uses redis for cache while queue stays sync in phase four', function () {
+    // phpunit.xml forces CACHE_STORE=array for isolated tests; .env.example is the product default.
     expect(config('queue.default'))->not->toBe('redis');
 
     $envExample = file_get_contents(base_path('.env.example'));
 
     expect($envExample)
-        ->toContain('CACHE_STORE=file')
+        ->toContain('CACHE_STORE=redis')
         ->toContain('QUEUE_CONNECTION=sync');
 });
 
@@ -28,5 +28,8 @@ it('can talk to redis when the service is available', function () {
         test()->markTestSkipped('Redis is not running: '.$exception->getMessage());
     }
 
-    expect($pong === true || $pong === 'PONG' || $pong === '+PONG')->toBeTrue();
+    // Predis 3 returns a Status object; phpredis may return true or "PONG".
+    $normalized = is_object($pong) ? (string) $pong : $pong;
+
+    expect($normalized === true || $normalized === 'PONG' || $normalized === '+PONG')->toBeTrue();
 });

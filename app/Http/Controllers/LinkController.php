@@ -10,6 +10,7 @@ use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
 use App\Http\Resources\LinkResource;
 use App\Models\Link;
+use App\Services\LinkCache;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -62,11 +63,13 @@ class LinkController extends Controller
         return LinkResource::make($updateLink->handle($link, $request->changes()));
     }
 
-    public function destroy(Link $link): Response
+    public function destroy(Link $link, LinkCache $linkCache): Response
     {
         Gate::authorize('delete', $link);
 
+        $code = $link->code;
         $link->delete();
+        $linkCache->forget($code);
 
         return response()->noContent();
     }

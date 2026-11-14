@@ -1,0 +1,83 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: scripts/redirect-bench.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 45s max duration (incl. graceful stop):
+              * redirect: 1 looping VUs for 15s (gracefulStop: 30s)
+
+
+running (01.0s), 1/1 VUs, 1 complete and 0 interrupted iterations
+redirect   [   7% ] 1 VUs  01.0s/15s
+
+running (02.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+redirect   [  13% ] 1 VUs  02.0s/15s
+
+running (03.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+redirect   [  20% ] 1 VUs  03.0s/15s
+
+running (04.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+redirect   [  27% ] 1 VUs  04.0s/15s
+
+running (05.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+redirect   [  33% ] 1 VUs  05.0s/15s
+
+running (06.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+redirect   [  40% ] 1 VUs  06.0s/15s
+
+running (07.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+redirect   [  47% ] 1 VUs  07.0s/15s
+
+running (08.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+redirect   [  53% ] 1 VUs  08.0s/15s
+
+running (09.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+redirect   [  60% ] 1 VUs  09.0s/15s
+
+running (10.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+redirect   [  67% ] 1 VUs  10.0s/15s
+
+running (11.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+redirect   [  74% ] 1 VUs  11.0s/15s
+
+running (12.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+redirect   [  80% ] 1 VUs  12.0s/15s
+
+running (13.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+redirect   [  87% ] 1 VUs  13.0s/15s
+
+running (14.0s), 1/1 VUs, 10 complete and 0 interrupted iterations
+redirect   [  93% ] 1 VUs  14.0s/15s
+
+running (15.0s), 1/1 VUs, 11 complete and 0 interrupted iterations
+redirect ↓ [ 100% ] 1 VUs  15s
+
+     ✓ expected status
+
+     checks.........................: 100.00% 12 out of 12
+     data_received..................: 18 kB   1.1 kB/s
+     data_sent......................: 1.0 kB  64 B/s
+     http_req_blocked...............: avg=1.77ms   min=510µs    med=1.31ms  max=4.09ms   p(90)=3.69ms   p(95)=3.92ms  
+     http_req_connecting............: avg=1.62ms   min=510µs    med=1.31ms  max=3.51ms   p(90)=3.21ms   p(95)=3.36ms  
+     http_req_duration..............: avg=1.32s    min=504.72ms med=1.41s   max=1.92s    p(90)=1.56s    p(95)=1.73s   
+       { expected_response:true }...: avg=1.32s    min=504.72ms med=1.41s   max=1.92s    p(90)=1.56s    p(95)=1.73s   
+   ✓ http_req_failed................: 0.00%   0 out of 12
+     http_req_receiving.............: avg=14.89ms  min=7.27ms   med=13.69ms max=36.87ms  p(90)=19.99ms  p(95)=27.68ms 
+     http_req_sending...............: avg=146.25µs min=0s       med=0s      max=614.19µs p(90)=579.36µs p(95)=596.27µs
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s      max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=1.3s     min=497.45ms med=1.4s    max=1.91s    p(90)=1.54s    p(95)=1.71s   
+     http_reqs......................: 12      0.753688/s
+     iteration_duration.............: avg=1.32s    min=506.57ms med=1.41s   max=1.92s    p(90)=1.56s    p(95)=1.73s   
+     iterations.....................: 12      0.753688/s
+     vus............................: 1       min=1        max=1
+     vus_max........................: 1       min=1        max=1
+
+
+running (15.9s), 0/1 VUs, 12 complete and 0 interrupted iterations
+redirect ✓ [ 100% ] 1 VUs  15s
