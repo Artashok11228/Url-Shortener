@@ -1,0 +1,28 @@
+{
+  "files": {
+    "app/Enums/Browser.php": {
+      "name": "Browser labels",
+      "description": "Named browser types used when recording clicks."
+    },
+    "app/Enums/Device.php": {
+      "name": "Device labels",
+      "description": "Named device types used when recording clicks."
+    },
+    "app/Enums/Role.php": {
+      "name": "User roles",
+      "description": "Marks someone as a regular user or an admin."
+    },
+    "app/Policies/LinkPolicy.php": {
+      "name": "Who may edit links",
+      "description": "Allows only the owner or an admin to view or change a short link."
+    },
+    "app/Rules/NotReservedAlias.php": {
+      "name": "Alias not reserved",
+      "description": "Blocks custom aliases that clash with built-in paths like login."
+    },
+    "app/Rules/SafeUrl.php": {
+      "name": "Safe destination URL",
+      "description": "Allows only http/https destinations and rejects private or dangerous hosts."
+    }
+  }
+}

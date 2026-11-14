@@ -1,0 +1,16 @@
+{
+  "files": {
+    "app/Models/Click.php": {
+      "name": "Click record",
+      "description": "One visit to a short link, with optional device and browser details."
+    },
+    "app/Models/Link.php": {
+      "name": "Short link",
+      "description": "Holds the short code, destination URL, owner, expiry, and active flag."
+    },
+    "app/Models/User.php": {
+      "name": "Account",
+      "description": "A person who can sign in and own short links."
+    }
+  }
+}

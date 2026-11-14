@@ -1,0 +1,12 @@
+{
+  "files": {
+    "app/Http/Controllers/RedirectController.php": {
+      "name": "Short-link jump",
+      "description": "Looks up a short code and sends the visitor to the original URL, or shows gone/not found."
+    },
+    "routes/web.php": {
+      "name": "Public page map",
+      "description": "Serves the welcome page and the public short-code redirect."
+    }
+  }
+}

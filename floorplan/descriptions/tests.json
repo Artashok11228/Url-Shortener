@@ -1,0 +1,64 @@
+{
+  "files": {
+    "tests/Feature/AuthApiTest.php": {
+      "name": "Sign-in tests",
+      "description": "Checks login, logout, and the signed-in profile request."
+    },
+    "tests/Feature/ExampleTest.php": {
+      "name": "Smoke homepage test",
+      "description": "Confirms the welcome page responds successfully."
+    },
+    "tests/Feature/FoundationEnvironmentTest.php": {
+      "name": "Environment setup tests",
+      "description": "Checks that basic app configuration needed for the project is in place."
+    },
+    "tests/Feature/LinkAuthorizationTest.php": {
+      "name": "Link access tests",
+      "description": "Checks owners, admins, guests, and other users get the right link permissions."
+    },
+    "tests/Feature/LinkCacheTest.php": {
+      "name": "Cache helper tests",
+      "description": "Checks that the redirect cache stores and forgets short-code payloads."
+    },
+    "tests/Feature/LinkManagementTest.php": {
+      "name": "Link CRUD tests",
+      "description": "Checks creating, listing, updating, and deleting short links through the API."
+    },
+    "tests/Feature/LinkModelTest.php": {
+      "name": "Link model tests",
+      "description": "Checks link helpers like expiry detection on the model itself."
+    },
+    "tests/Feature/LinkRedirectCacheTest.php": {
+      "name": "Redirect cache tests",
+      "description": "Checks redirects stay correct when cache is warm, stale, or cleared after edits."
+    },
+    "tests/Feature/LinkRedirectTest.php": {
+      "name": "Redirect behavior tests",
+      "description": "Checks successful jumps and the missing, inactive, and expired responses."
+    },
+    "tests/Pest.php": {
+      "name": "Test bootstrap",
+      "description": "Wires Pest helpers so feature and unit tests share the app setup."
+    },
+    "tests/TestCase.php": {
+      "name": "Base test case",
+      "description": "Shared Laravel test base that boots the app for every test."
+    },
+    "tests/Unit/ExampleTest.php": {
+      "name": "Example unit test",
+      "description": "Placeholder unit test that always passes."
+    },
+    "tests/Unit/SafeUrlTest.php": {
+      "name": "Safe URL rule tests",
+      "description": "Checks which destinations the safety rule accepts or rejects."
+    },
+    "tests/Unit/ShortCodeGeneratorTest.php": {
+      "name": "Code generator tests",
+      "description": "Checks random short codes have the expected length and character set."
+    },
+    "tests/Unit/UserAgentParserTest.php": {
+      "name": "Browser parser tests",
+      "description": "Checks device and browser detection from sample user-agent strings."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "files": {
+    "resources/css/app.css": {
+      "name": "Page styles",
+      "description": "Loads Tailwind so the welcome page can use utility classes."
+    },
+    "resources/js/app.js": {
+      "name": "Front-end entry",
+      "description": "Starts the small browser script bundle for the welcome page."
+    },
+    "resources/views/welcome.blade.php": {
+      "name": "Welcome screen",
+      "description": "Shows the landing page when someone opens the site root."
+    }
+  }
+}

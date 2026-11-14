@@ -1,0 +1,344 @@
+{
+  "$schema": "floorplan/architecture@1",
+  "project": {
+    "name": "URL Shortener",
+    "summary": "A Laravel link shortener: signed-in users create and manage short links over an API, and anyone can open a short code and get sent to the original URL. Redis speeds up those public redirects; MySQL holds the lasting data.",
+    "entrypoints": [
+      "public/index.php",
+      "routes/web.php",
+      "routes/api.php"
+    ]
+  },
+  "audience": "everyone",
+  "include": ["code", "config"],
+  "ignore": [
+    "vendor/**",
+    "node_modules/**",
+    "storage/**",
+    "bootstrap/cache/**",
+    "database/database.sqlite",
+    "public/hot",
+    "public/build/**"
+  ],
+  "nodes": [
+    {
+      "id": "api",
+      "label": "API",
+      "kind": "service",
+      "summary": "JSON endpoints for signing in and managing short links with a personal token.",
+      "paths": [
+        "routes/api.php",
+        "app/Http/Controllers/AuthController.php",
+        "app/Http/Controllers/LinkController.php",
+        "app/Http/Controllers/Controller.php",
+        "app/Http/Requests/**",
+        "app/Http/Resources/**"
+      ]
+    },
+    {
+      "id": "api.auth",
+      "parent": "api",
+      "label": "Sign-in",
+      "kind": "feature",
+      "summary": "Logs users in, returns a Sanctum token, and answers who is signed in.",
+      "paths": [
+        "app/Http/Controllers/AuthController.php",
+        "app/Http/Requests/LoginRequest.php",
+        "app/Http/Resources/UserResource.php"
+      ]
+    },
+    {
+      "id": "api.links",
+      "parent": "api",
+      "label": "Link management",
+      "kind": "feature",
+      "summary": "Create, list, update, and delete short links for the signed-in owner.",
+      "paths": [
+        "app/Http/Controllers/LinkController.php",
+        "app/Http/Requests/StoreLinkRequest.php",
+        "app/Http/Requests/UpdateLinkRequest.php",
+        "app/Http/Resources/LinkResource.php"
+      ]
+    },
+    {
+      "id": "redirect",
+      "label": "Public redirect",
+      "kind": "service",
+      "summary": "Turns a short code in the browser into a fast jump to the original URL.",
+      "paths": [
+        "routes/web.php",
+        "app/Http/Controllers/RedirectController.php"
+      ]
+    },
+    {
+      "id": "core",
+      "label": "Core logic",
+      "kind": "library",
+      "summary": "The rules and steps for creating, resolving, updating, and authorizing links.",
+      "paths": [
+        "app/Actions/**",
+        "app/Services/**",
+        "app/Rules/**",
+        "app/Policies/**",
+        "app/Enums/**"
+      ]
+    },
+    {
+      "id": "core.actions",
+      "parent": "core",
+      "label": "Actions",
+      "kind": "feature",
+      "summary": "One-job steps: create, update, resolve a link, and record a click.",
+      "paths": ["app/Actions/**"]
+    },
+    {
+      "id": "core.services",
+      "parent": "core",
+      "label": "Services",
+      "kind": "feature",
+      "summary": "Helpers for short codes, Redis cache for redirects, and reading the browser type.",
+      "paths": ["app/Services/**"]
+    },
+    {
+      "id": "core.guards",
+      "parent": "core",
+      "label": "Rules & access",
+      "kind": "feature",
+      "summary": "Checks that URLs are safe, aliases are free, and only owners or admins change links.",
+      "paths": ["app/Rules/**", "app/Policies/**", "app/Enums/**"]
+    },
+    {
+      "id": "data",
+      "label": "Data",
+      "kind": "data",
+      "summary": "Tables and Eloquent models for users, links, and clicks.",
+      "paths": ["app/Models/**", "database/**"]
+    },
+    {
+      "id": "data.models",
+      "parent": "data",
+      "label": "Models",
+      "kind": "data",
+      "summary": "PHP objects that map to users, short links, and click rows.",
+      "paths": ["app/Models/**"]
+    },
+    {
+      "id": "data.schema",
+      "parent": "data",
+      "label": "Schema & factories",
+      "kind": "data",
+      "summary": "Migrations that create the tables, plus factories and seeders for sample data.",
+      "paths": ["database/**"]
+    },
+    {
+      "id": "ui",
+      "label": "Welcome page",
+      "kind": "ui",
+      "summary": "The simple landing page and the small front-end assets Laravel ships with.",
+      "paths": ["resources/**"]
+    },
+    {
+      "id": "config",
+      "label": "Settings",
+      "kind": "config",
+      "summary": "App settings, including shortener cache TTL, auth, database, and Redis.",
+      "paths": [
+        "config/**",
+        "bootstrap/**",
+        "app/Providers/**",
+        "routes/console.php",
+        "public/index.php",
+        "composer.json",
+        "package.json",
+        "vite.config.js",
+        "phpunit.xml",
+        ".env.example",
+        ".npmrc"
+      ]
+    },
+    {
+      "id": "tests",
+      "label": "Tests",
+      "kind": "test",
+      "summary": "Automated checks that the API, redirect, cache, and access rules behave correctly.",
+      "paths": ["tests/**"]
+    },
+    {
+      "id": "bench",
+      "label": "Redirect bench",
+      "kind": "script",
+      "summary": "k6 scripts that measure how fast public redirects respond.",
+      "paths": ["scripts/**"]
+    },
+    {
+      "id": "infra",
+      "label": "Docker / Sail",
+      "kind": "infra",
+      "summary": "Docker Compose setup that runs the app with MySQL and Redis together.",
+      "paths": ["compose.yaml", ".github/workflows/**"]
+    },
+    {
+      "id": "mysql",
+      "label": "MySQL",
+      "kind": "external",
+      "summary": "The main database that stores users, links, and clicks."
+    },
+    {
+      "id": "redis",
+      "label": "Redis",
+      "kind": "external",
+      "summary": "In-memory cache used so repeated short-code lookups stay fast."
+    }
+  ],
+  "edges": [
+    {
+      "from": "api",
+      "to": "core.actions",
+      "kind": "call",
+      "label": "runs actions",
+      "description": "Controllers call CreateLink and UpdateLink to change data."
+    },
+    {
+      "from": "redirect",
+      "to": "core.actions",
+      "kind": "call",
+      "label": "ResolveLink",
+      "description": "The public redirect asks ResolveLink for the destination."
+    },
+    {
+      "from": "core.actions",
+      "to": "core.services",
+      "kind": "call",
+      "label": "codes & cache",
+      "description": "Actions use ShortCodeGenerator and LinkCache."
+    },
+    {
+      "from": "core.services",
+      "to": "redis",
+      "kind": "data",
+      "label": "links:code:*",
+      "description": "LinkCache stores a small payload per short code in Redis."
+    },
+    {
+      "from": "data.models",
+      "to": "mysql",
+      "kind": "data",
+      "label": "reads/writes",
+      "description": "Eloquent models persist users, links, and clicks in MySQL."
+    },
+    {
+      "from": "api.links",
+      "to": "core.guards",
+      "kind": "call",
+      "label": "LinkPolicy",
+      "description": "Only the owner or an admin may change a link."
+    },
+    {
+      "from": "bench",
+      "to": "redirect",
+      "kind": "http",
+      "label": "GET /{code}",
+      "description": "k6 hits the public redirect to measure latency."
+    }
+  ],
+  "flows": [
+    {
+      "id": "create-link",
+      "title": "Create a short link",
+      "description": "A signed-in user turns a long URL into a short code.",
+      "steps": [
+        {
+          "node": "api.auth",
+          "note": "User signs in and gets a personal API token"
+        },
+        {
+          "node": "api.links",
+          "note": "POST /api/links sends the long URL (and optional alias)"
+        },
+        {
+          "node": "core.guards",
+          "note": "Validation checks the URL is safe and the alias is free"
+        },
+        {
+          "node": "core.actions",
+          "note": "CreateLink picks a unique short code and saves the link"
+        },
+        {
+          "node": "mysql",
+          "note": "The new link row is stored for later lookups"
+        }
+      ]
+    },
+    {
+      "id": "follow-link",
+      "title": "Follow a short link",
+      "description": "Anyone opens a short code and lands on the original site.",
+      "steps": [
+        {
+          "node": "redirect",
+          "note": "Browser requests GET /{code}"
+        },
+        {
+          "node": "core.actions",
+          "note": "ResolveLink looks up the code"
+        },
+        {
+          "node": "core.services",
+          "note": "LinkCache tries Redis first, then the database"
+        },
+        {
+          "node": "redis",
+          "note": "A cache hit avoids a database round-trip"
+        },
+        {
+          "node": "redirect",
+          "note": "Visitor is sent to the original URL (or 404/410 if gone)"
+        }
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "node": "api",
+      "title": "What this app is",
+      "note": "A Laravel shortener: manage links over an API, open them with a public short URL."
+    },
+    {
+      "node": "api.auth",
+      "title": "Signing in",
+      "note": "Users get a Sanctum token so only they can manage their own links."
+    },
+    {
+      "node": "api.links",
+      "title": "Managing links",
+      "note": "Create, list, edit, and delete short links while signed in."
+    },
+    {
+      "node": "redirect",
+      "title": "The public jump",
+      "note": "Anyone can open /abc123 and get redirected—no login needed."
+    },
+    {
+      "node": "core.services",
+      "title": "Why Redis is here",
+      "note": "Repeated redirects read a small cached payload instead of hitting MySQL every time."
+    },
+    {
+      "node": "data.models",
+      "title": "What gets stored",
+      "note": "Users own links; clicks can be recorded later for stats."
+    }
+  ],
+  "annotations": [
+    {
+      "path": "app/Services/LinkCache.php",
+      "note": "Caches a plain array (not the Eloquent model) so Redis never returns a broken class on unserialize.",
+      "tags": ["hotspot"]
+    },
+    {
+      "path": "app/Actions/CreateLink.php",
+      "note": "If two requests draw the same random code, the unique index rejects one and it draws again.",
+      "tags": ["hotspot"]
+    }
+  ]
+}
