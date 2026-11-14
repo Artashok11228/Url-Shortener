@@ -35,17 +35,20 @@ php artisan sail:install   # فقط اگر compose.yaml هنوز نداری
 
 ## اجرای محلی بدون Docker
 
-برای توسعهٔ سریع می‌توانی SQLite استفاده کنی. از فاز ۴ برای redirect باید `CACHE_STORE=redis` باشد (و Redis در حال اجرا). صف هنوز `sync` است تا فاز ۵.
+برای توسعهٔ سریع می‌توانی SQLite استفاده کنی. از فاز ۴ برای redirect باید `CACHE_STORE=redis` باشد. از فاز ۵ برای ثبت کلیک باید `QUEUE_CONNECTION=redis` باشد و یک worker جدا اجرا شود.
 
 ```bash
 cp .env.example .env
-# DB_CONNECTION=sqlite و CACHE_STORE=file و QUEUE_CONNECTION=sync
+# DB_CONNECTION=sqlite و CACHE_STORE=redis و QUEUE_CONNECTION=redis
 composer install
 php artisan key:generate
 touch database/database.sqlite   # اگر لازم بود
 php artisan migrate
 php artisan serve
+# ترمینال دوم:
+php artisan queue:work redis
 ```
+
 
 ## تست و قالب‌بندی
 
@@ -67,7 +70,28 @@ vendor/bin/pint
 - فاز ۲: ساخت/ویرایش/حذف لینک، alias، انقضا، و redirect عمومی `GET /{code}`.
 - فاز ۳: ورود با توکن Sanctum، مالکیت لینک، و کنترل دسترسی با Policy (کاربر / ادمین).
 - فاز ۴: cache ردیاب redirect با Redis، ابطال هنگام ویرایش/حذف، و اندازه‌گیری با k6.
+- فاز ۵: رویداد `LinkClicked`، job ثبت کلیک روی صف Redis، و worker پس‌زمینه.
 - برنامهٔ فازها در `DEVELOPMENT.md` و نکات یادگیری در `LEARNING.md` است.
+
+### ثبت کلیک با queue (فاز ۵)
+
+بعد از redirect موفق (حتی اگر لینک از cache آمده باشد)، رویداد `LinkClicked` زده می‌شود. Listener یک `RecordClickJob` به صف Redis می‌فرستد؛ worker ردیف `clicks` را می‌نویسد.
+
+```bash
+# یک ترمینال: اپ
+php artisan serve
+
+# ترمینال دیگر: worker
+php artisan queue:work redis
+```
+
+رفتار تعریف‌شده:
+
+- **retry:** job تا ۳ بار تلاش می‌کند با فاصلهٔ ۱، ۵، ۱۵ ثانیه.
+- **شکست نهایی:** در `failed_jobs` می‌ماند و یک warning در لاگ نوشته می‌شود؛ redirect کاربر از قبل انجام شده و شکست نمی‌خورد.
+- **ثبت تکراری:** صف at-least-once است؛ اگر worker بعد از INSERT و قبل از ack قطع شود، retry ممکن است یک ردیف اضافه بسازد. برای شمارش تقریبی این فاز پذیرفته شده است.
+
+نکتهٔ اندازه‌گیری: اضافه شدن queue push شرایط را نسبت به فاز ۴ عوض می‌کند؛ اعداد را مستقیم مقایسه نکن. توضیح: [`docs/benchmarks/phase-05-queue-note.md`](docs/benchmarks/phase-05-queue-note.md).
 
 ### Cache و اندازه‌گیری (فاز ۴)
 

@@ -73,7 +73,7 @@ it('still redirects one second before expiry', function () {
     Carbon::setTestNow();
 });
 
-it('does not record a click during redirect in this phase', function () {
+it('records a click during a successful redirect', function () {
     Link::factory()->create([
         'code' => 'plain',
         'original_url' => 'https://example.com',
@@ -81,5 +81,5 @@ it('does not record a click during redirect in this phase', function () {
 
     $this->get('/plain')->assertRedirect('https://example.com');
 
-    $this->assertDatabaseCount('clicks', 0);
+    $this->assertDatabaseCount('clicks', 1);
 });

@@ -110,3 +110,26 @@ Policy می‌گوید «اجازهٔ دیدن فهرست داری» (`viewAny`)
 ### نتیجهٔ واقعی اندازه‌گیری
 
 روی `php artisan serve` بهبود واضحی دیده نشد؛ bottleneck سرور تک‌نخی و هزینهٔ درخواست لاراول بود، نه lookup لینک. اعداد در `docs/benchmarks/phase-04-results.md` ثبت شد — حتی وقتی بهبود نبود.
+
+## فاز ۵ — event و queue
+
+### تفاوت Event و Job
+
+- **Event:** اعلام یک اتفاق دامنه («این لینک کلیک شد»). خودش کار سنگینی نمی‌کند.
+- **Job:** واحد کاری قابل صف‌شدن («این کلیک را در دیتابیس ذخیره کن») با retry و `failed()`.
+
+مثال: Controller فقط `LinkClicked` را fire می‌کند. Listener بلافاصله `RecordClickJob` را به Redis می‌فرستد. بازدیدکننده منتظر INSERT نمی‌ماند.
+
+### چرا هم Event هم Job؟
+
+می‌شد مستقیم از Controller همان Job را dispatch کرد. Event را نگه داشتیم چون فاز روی observer pattern تمرکز دارد و بعداً می‌توان listener دیگری (مثلاً متریک) اضافه کرد بدون دست‌زدن به Controller.
+
+Listener را `ShouldQueue` نکردیم: خودش فقط یک dispatch سبک است؛ صف‌شدن روی Job نام‌دار شفاف‌تر است.
+
+### Worker و at-least-once
+
+`php artisan queue:work redis` jobها را از Redis می‌گیرد و اجرا می‌کند. اگر INSERT موفق شود ولی ack نرسد، همان job دوباره می‌آید → احتمال ردیف تکراری. جایگزین دقیق‌تر (idempotency key) برای این فاز لازم نبود؛ هدف جدا کردن مسیر داغ redirect است.
+
+### شکست ثبت کلیک
+
+بعد از اتمام `$tries`، Laravel ردیف را در `failed_jobs` می‌گذارد و `failed()` یک warning می‌نویسد. کاربر از قبل `302` گرفته؛ آمار ممکن است یکی کم داشته باشد.
