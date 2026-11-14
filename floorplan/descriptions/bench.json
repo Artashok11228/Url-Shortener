@@ -1,0 +1,12 @@
+{
+  "files": {
+    "scripts/benchmark-redirect.sh": {
+      "name": "Bench runner shell",
+      "description": "Runs the redirect speed test with sensible defaults for local measurement."
+    },
+    "scripts/redirect-bench.js": {
+      "name": "k6 redirect script",
+      "description": "Hits a short code repeatedly and reports how fast redirects respond."
+    }
+  }
+}

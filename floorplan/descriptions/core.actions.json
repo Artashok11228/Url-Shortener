@@ -1,0 +1,20 @@
+{
+  "files": {
+    "app/Actions/CreateLink.php": {
+      "name": "Create short link",
+      "description": "Saves a new short link for an owner, drawing a unique code when no alias is given."
+    },
+    "app/Actions/RecordClick.php": {
+      "name": "Record a click",
+      "description": "Stores that someone opened a short link, including rough device and browser info."
+    },
+    "app/Actions/ResolveLink.php": {
+      "name": "Find short link",
+      "description": "Looks up a short code through the cache and returns the link if it still exists."
+    },
+    "app/Actions/UpdateLink.php": {
+      "name": "Update short link",
+      "description": "Applies edits to a link and clears the cached copy so redirects stay correct."
+    }
+  }
+}

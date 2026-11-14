@@ -1,0 +1,12 @@
+{
+  "files": {
+    "app/Http/Controllers/Controller.php": {
+      "name": "Shared controller base",
+      "description": "Empty shared parent that every request handler extends."
+    },
+    "routes/api.php": {
+      "name": "API request map",
+      "description": "Lists the sign-in and link-management requests the app accepts."
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "updatedAt": "2026-11-14T06:35:00Z",
+  "tasks": [
+    {
+      "title": "First project floorplan",
+      "request": "از پروژه فعلی یه ساختار با استفاده از floorplan دربیار",
+      "summary": "Mapped the Laravel shortener into API, public redirect, core logic, data, Redis, and MySQL, with flows for creating and following links. The map is ready to browse locally.",
+      "items": [
+        {
+          "ref": "api",
+          "change": "new",
+          "note": "Grouped as the signed-in API: login and link management sit here so the board starts where owners work."
+        },
+        {
+          "ref": "redirect",
+          "change": "new",
+          "note": "Separated the public short-code jump from the API so the main visitor path is easy to see."
+        },
+        {
+          "ref": "app/Services/LinkCache.php",
+          "change": "changed",
+          "note": "Highlighted as the Redis redirect cache—the newest product piece (phase 4) that speeds up public jumps."
+        },
+        {
+          "ref": "app/Actions/ResolveLink.php",
+          "change": "changed",
+          "note": "This is the lookup step between the public redirect and the cache or database."
+        },
+        {
+          "ref": "app/Actions/CreateLink.php",
+          "change": "changed",
+          "note": "Creates short links with unique codes; central to the create-link flow on the map."
+        },
+        {
+          "ref": "app/Http/Controllers/RedirectController.php",
+          "change": "changed",
+          "note": "Public front door for GET /{code}; the map’s follow-link flow starts and ends here."
+        },
+        {
+          "ref": "routes/api.php",
+          "change": "changed",
+          "note": "Lists every signed-in request; useful when reading the API side of the board."
+        },
+        {
+          "ref": "core.services",
+          "change": "new",
+          "note": "Holds short-code drawing and Redis cache helpers that both create and redirect depend on."
+        },
+        {
+          "ref": "redis",
+          "change": "new",
+          "note": "Shown as an outside service because redirect lookups store payloads here."
+        },
+        {
+          "ref": "mysql",
+          "change": "new",
+          "note": "Shown as the lasting store for users, links, and clicks."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "files": {
+    "app/Http/Controllers/LinkController.php": {
+      "name": "Link requests",
+      "description": "Lets a signed-in owner create, list, update, and delete their short links."
+    },
+    "app/Http/Requests/StoreLinkRequest.php": {
+      "name": "New link checks",
+      "description": "Validates the long URL, optional custom alias, and expiry before creating a link."
+    },
+    "app/Http/Requests/UpdateLinkRequest.php": {
+      "name": "Edit link checks",
+      "description": "Validates changes to a link's destination, alias, or expiry."
+    },
+    "app/Http/Resources/LinkResource.php": {
+      "name": "Link reply shape",
+      "description": "Formats a short link's code, destination, and status for the client."
+    }
+  }
+}
