@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Click;
 use App\Models\Link;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,10 +27,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'demo@example.com',
         ]);
 
-        Link::factory()->for($demo)->create([
+        $docs = Tag::factory()->for($demo)->create(['name' => 'docs']);
+        $promo = Tag::factory()->for($demo)->create(['name' => 'promo']);
+
+        $laravelLink = Link::factory()->for($demo)->create([
             'original_url' => 'https://laravel.com/docs',
             'code' => 'laravel',
-        ])->clicks()->saveMany(Click::factory()->count(120)->make());
+        ]);
+        $laravelLink->clicks()->saveMany(Click::factory()->count(120)->make());
+        $laravelLink->tags()->attach([$docs->id, $promo->id]);
 
         Link::factory()->for($demo)->expired()->create([
             'original_url' => 'https://example.com/old-campaign',
