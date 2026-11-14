@@ -18,9 +18,9 @@
 | ۱ | پایه | ادغام‌شده |
 | ۲ | هستهٔ لینک | ادغام‌شده |
 | ۳ | کاربر و دسترسی | ادغام‌شده |
-| ۴ | اندازه‌گیری و cache | آمادهٔ ادغام |
-| ۵ | event و queue | آمادهٔ ادغام |
-| ۶ | داشبورد و N+1 | بررسی‌نشده |
+| ۴ | اندازه‌گیری و cache | ادغام‌شده |
+| ۵ | event و queue | ادغام‌شده |
+| ۶ | داشبورد و N+1 | آمادهٔ ادغام |
 | ۷ | آماده‌سازی برای ارائه | بررسی‌نشده |
 
 ## فاز ۱ — پایه
@@ -177,13 +177,13 @@ Branch: phase/07-project-delivery
 
 در پایان هر نوبت کاری این بخش به‌روز شود:
 
-- فاز جاری: ۵ — event و queue
-- branch: `phase/05-click-queue` (از روی `phase/04-redis-cache`؛ فاز ۴ هنوز روی `main` ادغام نشده)
-- کارهای انجام‌شده: `LinkClicked` + listener `DispatchRecordClickJob` + `RecordClickJob`؛ اتصال در `RedirectController` بعد از موفقیت redirect (شامل cache hit)؛ استفاده از `RecordClick` موجود؛ تست‌های dispatch/ذخیره/کش/شکست؛ `.env.example` با `QUEUE_CONNECTION=redis`؛ README worker؛ یادداشت اندازه‌گیری در `docs/benchmarks/phase-05-queue-note.md`؛ LEARNING فاز ۵.
-- بررسی‌های انجام‌شده و نتیجه: تست‌های مرتبط سبز؛ بررسی واقعی worker با Redis: صف ۱ → `queue:work --once` → کلیک ذخیره شد.
-- کارهای باقی‌مانده: commit/push این فاز؛ ادغام فاز ۴ (و سپس ۵) روی `main` توسط کاربر.
-- تصمیم‌های مهم و دلیل آن‌ها: Event + Job نام‌دار به‌جای queued listener تنها؛ listener سنکرون برای فقط push؛ at-least-once بدون idempotency key؛ `country=null` چون GeoIP خارج از محدوده است.
-- مانع یا سؤال باز: فاز ۴ هنوز merge نشده؛ پایهٔ این branch همان فاز ۴ است.
+- فاز جاری: ۶ — داشبورد و N+1
+- branch: `phase/06-dashboard` (از روی `origin/main` پس از ادغام فازهای ۴ و ۵)
+- کارهای انجام‌شده: مدل/جداول `Tag` و `link_tag`؛ `SyncLinkTags`؛ session login وب؛ داشبورد Blade با pagination، `with('tags')` و `withCount('clicks')`؛ فرم ویرایش تگ؛ تست‌های auth/مالکیت/صفحه‌بندی/شمارش query؛ یادداشت N+1 در `docs/benchmarks/phase-06-n1.md`؛ LEARNING فاز ۶.
+- بررسی‌های انجام‌شده و نتیجه: تست‌های فاز ۶ سبز؛ اندازه‌گیری lazy ۵→۱۱ و ۲۰→۴۱ query در برابر eager ثابت ۲ query.
+- کارهای باقی‌مانده: commit/push این فاز؛ ساخت PR توسط کاربر؛ ادغام روی `main` توسط کاربر.
+- تصمیم‌های مهم و دلیل آن‌ها: Blade+session بدون Breeze؛ تگ متعلق به صاحب لینک؛ تگ فقط از داشبورد (نه API کامل)؛ کد نهایی فقط eager و شواهد N+1 در سند/تست.
+- مانع یا سؤال باز: ندارد.
 - قدم بعدی: پس از سبز بودن Pint/تست، commit/push و لینک PR.
 
 اطلاعات حساس در این بخش ثبت نشود. شناسهٔ commit نهایی و نتیجهٔ push در پیام تحویل ارائه شوند.

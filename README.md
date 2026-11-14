@@ -71,7 +71,20 @@ vendor/bin/pint
 - فاز ۳: ورود با توکن Sanctum، مالکیت لینک، و کنترل دسترسی با Policy (کاربر / ادمین).
 - فاز ۴: cache ردیاب redirect با Redis، ابطال هنگام ویرایش/حذف، و اندازه‌گیری با k6.
 - فاز ۵: رویداد `LinkClicked`، job ثبت کلیک روی صف Redis، و worker پس‌زمینه.
+- فاز ۶: داشبورد Blade با session login، تگ‌های متعلق به کاربر، pagination، و رفع N+1 با `with` / `withCount`.
 - برنامهٔ فازها در `DEVELOPMENT.md` و نکات یادگیری در `LEARNING.md` است.
+
+### داشبورد وب (فاز ۶)
+
+بعد از seed، با مرورگر وارد شو:
+
+1. `http://localhost/login` — مثلاً `demo@example.com` / `password`
+2. `/dashboard` — فهرست لینک‌ها با تعداد کلیک و تگ‌ها
+3. از «Edit tags» تگ‌های هر لینک را با ویرگول ویرایش کن
+
+API همچنان با توکن Sanctum کار می‌کند؛ داشبورد از session جداگانه استفاده می‌کند.
+
+شواهد N+1 و اصلاح آن: [`docs/benchmarks/phase-06-n1.md`](docs/benchmarks/phase-06-n1.md).
 
 ### ثبت کلیک با queue (فاز ۵)
 
