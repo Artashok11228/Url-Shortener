@@ -1,0 +1,16 @@
+{
+  "files": {
+    "app/Http/Controllers/AuthController.php": {
+      "name": "Sign-in handler",
+      "description": "Logs people in with email and password, hands back a personal token, and signs them out."
+    },
+    "app/Http/Requests/LoginRequest.php": {
+      "name": "Login checks",
+      "description": "Makes sure email and password are present before sign-in runs."
+    },
+    "app/Http/Resources/UserResource.php": {
+      "name": "User reply shape",
+      "description": "Formats the signed-in person's id, name, email, and role for the client."
+    }
+  }
+}

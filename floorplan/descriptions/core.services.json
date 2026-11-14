@@ -1,0 +1,16 @@
+{
+  "files": {
+    "app/Services/LinkCache.php": {
+      "name": "Redirect cache",
+      "description": "Remembers each short code's destination in Redis so repeats avoid a full database lookup."
+    },
+    "app/Services/ShortCodeGenerator.php": {
+      "name": "Code drawer",
+      "description": "Draws a random short code from the allowed character set."
+    },
+    "app/Services/UserAgentParser.php": {
+      "name": "Browser reader",
+      "description": "Guesses device and browser type from the visitor's user-agent string."
+    }
+  }
+}

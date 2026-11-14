@@ -1,0 +1,2 @@
+# Local scan/cache only — the map itself is tracked.
+.cache/

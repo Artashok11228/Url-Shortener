@@ -1,0 +1,44 @@
+{
+  "files": {
+    "database/factories/ClickFactory.php": {
+      "name": "Fake clicks",
+      "description": "Builds sample click rows for tests."
+    },
+    "database/factories/LinkFactory.php": {
+      "name": "Fake links",
+      "description": "Builds sample short links for tests."
+    },
+    "database/factories/UserFactory.php": {
+      "name": "Fake users",
+      "description": "Builds sample accounts for tests."
+    },
+    "database/migrations/0001_01_01_000000_create_users_table.php": {
+      "name": "Create users table",
+      "description": "Creates the accounts table and related password-reset storage."
+    },
+    "database/migrations/0001_01_01_000001_create_cache_table.php": {
+      "name": "Create cache table",
+      "description": "Creates database tables used when cache is stored in MySQL instead of Redis."
+    },
+    "database/migrations/0001_01_01_000002_create_jobs_table.php": {
+      "name": "Create jobs table",
+      "description": "Creates tables for background job queues and failed jobs."
+    },
+    "database/migrations/2026_11_04_134640_create_personal_access_tokens_table.php": {
+      "name": "Create API tokens table",
+      "description": "Stores personal API tokens used after sign-in."
+    },
+    "database/migrations/2026_11_04_140000_create_links_table.php": {
+      "name": "Create links table",
+      "description": "Creates the short links table with unique codes, owners, and expiry."
+    },
+    "database/migrations/2026_11_04_140100_create_clicks_table.php": {
+      "name": "Create clicks table",
+      "description": "Creates the table that records each visit to a short link."
+    },
+    "database/seeders/DatabaseSeeder.php": {
+      "name": "Sample data seeder",
+      "description": "Fills the database with starter accounts and links for local demos."
+    }
+  }
+}

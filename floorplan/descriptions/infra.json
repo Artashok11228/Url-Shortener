@@ -1,0 +1,12 @@
+{
+  "files": {
+    "compose.yaml": {
+      "name": "Sail containers",
+      "description": "Defines the app, MySQL, and Redis containers used for local development."
+    },
+    ".github/workflows/ci.yml": {
+      "name": "CI workflow",
+      "description": "Runs tests automatically when code is pushed to GitHub."
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "files": {
+    ".env.example": {
+      "name": "Env template",
+      "description": "Sample environment values for database, Redis, cache, and app URL."
+    },
+    ".npmrc": {
+      "name": "npm settings",
+      "description": "Local npm options used when installing front-end packages."
+    },
+    "app/Providers/AppServiceProvider.php": {
+      "name": "App wiring",
+      "description": "Registers shared app services when the server starts."
+    },
+    "bootstrap/app.php": {
+      "name": "App bootstrap",
+      "description": "Starts the Laravel app and points it at the HTTP and console entry points."
+    },
+    "bootstrap/providers.php": {
+      "name": "Provider list",
+      "description": "Lists which service providers load at startup."
+    },
+    "composer.json": {
+      "name": "PHP packages",
+      "description": "Declares PHP dependencies and scripts for the Laravel app."
+    },
+    "config/app.php": {
+      "name": "App settings",
+      "description": "Sets the app name, timezone, locale, and encryption key source."
+    },
+    "config/auth.php": {
+      "name": "Auth settings",
+      "description": "Configures how the app identifies signed-in users."
+    },
+    "config/cache.php": {
+      "name": "Cache settings",
+      "description": "Chooses where cached data lives, such as Redis or the file system."
+    },
+    "config/database.php": {
+      "name": "Database settings",
+      "description": "Defines MySQL, SQLite, and other database connection details."
+    },
+    "config/filesystems.php": {
+      "name": "File storage settings",
+      "description": "Configures local and cloud disks for uploaded or generated files."
+    },
+    "config/logging.php": {
+      "name": "Log settings",
+      "description": "Controls where errors and app messages are written."
+    },
+    "config/mail.php": {
+      "name": "Mail settings",
+      "description": "Configures how the app would send email if needed."
+    },
+    "config/queue.php": {
+      "name": "Queue settings",
+      "description": "Chooses how background jobs are stored and processed."
+    },
+    "config/sanctum.php": {
+      "name": "API token settings",
+      "description": "Configures personal API tokens used after sign-in."
+    },
+    "config/services.php": {
+      "name": "Third-party keys",
+      "description": "Holds credentials placeholders for outside services."
+    },
+    "config/session.php": {
+      "name": "Session settings",
+      "description": "Controls how browser sessions are stored and how long they last."
+    },
+    "config/shortener.php": {
+      "name": "Shortener settings",
+      "description": "Sets short-code length and how long redirect cache entries live."
+    },
+    "package.json": {
+      "name": "Front-end packages",
+      "description": "Declares Vite, Tailwind, and other browser build tools."
+    },
+    "phpunit.xml": {
+      "name": "Test runner config",
+      "description": "Tells the test runner which suite to run and which env to use."
+    },
+    "public/index.php": {
+      "name": "Web front door",
+      "description": "First PHP file the web server runs for every browser request."
+    },
+    "routes/console.php": {
+      "name": "Console commands map",
+      "description": "Registers Artisan console commands for the project."
+    },
+    "vite.config.js": {
+      "name": "Asset build config",
+      "description": "Tells Vite how to bundle CSS and JavaScript for the pages."
+    }
+  }
+}
